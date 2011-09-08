@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+
+thead {
+    background-color: #2f519b;
+    color: #fff;
+}
+
+th {
+	padding: 3px 15px 3px 5px;
+}
+
+td {
+    padding: 3px 15px 3px 5px;    
+}
+
+.odd {
+    background-color: #e9f6ff;
+}
+
+.even {
+    background-color: #fff;
+}
+
+.grid {
+    border: 1px solid #b3b3b3;
+    border-collapse: collapse;
+    position: relative;
+    margin: 10px 10px 10px 10px;
+}
+
+.grid tr td {
+	border-right: 1px solid #b3b3b3;
+	border-left: 1px solid #b3b3b3;
+}
+
+.sorted, .sorted a:visited, .sorted a:link, .sorted a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sortable, .sortable a:link, sortable a:hover, .sortable a:visited  { 
+  color: #fff;
+  text-decoration: none;
+}
+
+.grid tr:hover {
+    background-color: #fff1a8;}
+
+.grid tr:hover th {
+    background-color: #2f519b;}
+
+.grid tr:hover th a {color:#fff;}
+
+.tbGrid {
+    width: 100%;
+    border: 1px solid #CDC5BF;
+}
+
+.tdTituloGrid {
+    background-color: #2f519b;
+    padding: 3px;
+    text-align: left;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.tdTituloAcoesGrid {
+    background-color: #2f519b;
+    padding: 5px;
+    text-align: center;
+    font-weight: bolder;
+    width: 7%;
+    color: #FFFFFF;
+}
+
+.tdConteudoGrid {
+    text-align: left;
+}
+
+.trConteudoGridRow1 {
+    background-color: #FFFFFF;
+}
+
+.trConteudoGridRow2 {
+    background-color: #e9f6ff;
+    z-index: 1;
+}
+
+.tdAcoesGrid {
+    text-align: center;
+}

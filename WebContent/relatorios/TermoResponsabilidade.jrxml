@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="classic" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="TERMO" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT  t.data, t.numero,t.ano, depto_orig.nome as setor_origem, depto_dest.nome as setor_destino
+FROM almoxarifado.termo_responsabilidade t INNER JOIN almoxarifado.departamento depto_orig ON t.departamentoorigem_id = depto_orig.id
+INNER JOIN almoxarifado.departamento depto_dest ON t.departamentodestino_id = depto_dest.id
+WHERE t.id = $P{TERMO}]]>
+	</queryString>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="ano" class="java.lang.Integer"/>
+	<field name="setor_origem" class="java.lang.String"/>
+	<field name="setor_destino" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="68">
+			<image hyperlinkType="None">
+				<reportElement key="image-1" x="231" y="0" width="71" height="68"/>
+				<imageExpression class="java.lang.String"><![CDATA["brasao.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43">
+			<staticText>
+				<reportElement key="staticText-14" x="6" y="15" width="519" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Transformada pela Lei nº 6.660 de 28 de dezembro de 2005]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-13" x="6" y="3" width="519" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDADE ESTADUAL DE CIÊNCIAS DA SAÚDE DE ALAGOAS - UNCISAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-15" x="6" y="27" width="519" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isItalic="true" fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Campos Governador Lamenha Filho - Rua Jorge de Lima, 113, Trapiche da Barra, Cep 57.010.300, Maceió AL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="527">
+			<staticText>
+				<reportElement key="staticText-1" x="40" y="160" width="0" height="1"/>
+				<textElement/>
+				<text><![CDATA[Texto Estático]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="32" y="235" width="467" height="115"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="15"/>
+				</textElement>
+				<text><![CDATA[          Comunicamos que a partir desta data encontram-se sob sua responsabilidade os bens patrimoniais relacionados em anexo. Solicitamos que seja comunicado ao Setor de Patrimônio, quaisquer saídas dos referidos bens para qualquer fim. Solicitamos tambem a conferência dos mesmos, devolvendo-nos um cópia devidamente assinada.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" x="45" y="459" width="167" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true" />
+				</textElement>
+				<text><![CDATA[ELABORADO POR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="289" y="459" width="210" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true" />
+				</textElement>
+				<text><![CDATA[RESPONSÁVEL/DETENTOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-6" x="65" y="501" width="134" height="15"/>
+				<textElement/>
+				<text><![CDATA[CARIMBO E ASSINATURA]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-1" x="45" y="501" width="167" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-8" x="330" y="503" width="134" height="15"/>
+				<textElement/>
+				<text><![CDATA[CARIMBO E ASSINATURA]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" x="310" y="503" width="167" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-9" x="31" y="90" width="48" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[DO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" x="31" y="111" width="48" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[PARA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-11" x="31" y="132" width="48" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[DATA:]]></text>
+			</staticText>
+			<textField evaluationTime="Report" pattern="dd/MM/yyyy" isBlankWhenNull="false" hyperlinkType="None">
+				<reportElement key="textField" x="79" y="132" width="95" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false" hyperlinkType="None">
+				<reportElement key="textField-1" x="79" y="90" width="404" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{setor_origem}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false" hyperlinkType="None">
+				<reportElement key="textField-2" x="79" y="111" width="404" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{setor_destino}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-12" x="120" y="33" width="247" height="19"/>
+				<textElement>
+					<font size="14" isBold="true" fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[TERMO DE RESPONSABILIDADE Nº]]></text>
+			</staticText>
+			<textField pattern="000" isBlankWhenNull="false" hyperlinkType="None">
+				<reportElement key="textField-3" x="367" y="33" width="30" height="19"/>
+				<textElement>
+					<font size="14" isBold="true" fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false" hyperlinkType="None">
+				<reportElement key="textField-4" x="392" y="33" width="50" height="19"/>
+				<textElement>
+					<font size="14" isBold="true" fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["/" +$F{ano}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27"/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

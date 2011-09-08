@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib version = "2.0">
+<!-- 
+/**
+ * Copyright 2010 UNCISAL Universidade de Ciências em Saúde do Estado de Alagoas.
+ * 
+ * This file is part of SIAPNET.
+ *
+ * SIAPNET is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License.
+ *
+ * SIAPNET is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * 
+ along with SIAPNET.  If not, see <http://www.gnu.org/licenses/>.
+ */
+-->
+    <tlibversion>1.0</tlibversion>
+    <jspversion>1.1</jspversion>
+    <shortname>uncisal</shortname>
+    <tag>
+        <name>treePrintList</name>
+        <tag-class>br.edu.uncisal.almoxarifado.taglib.TreePrintTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>treeables</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>checkeable</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>existentes</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>printMenuTag</name>
+        <tag-class>br.edu.uncisal.almoxarifado.taglib.PrintMenuTag</tag-class>
+        <attribute>
+            <name>usuario</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>browser</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>selectPrintList</name>
+        <tag-class>br.edu.uncisal.almoxarifado.taglib.SelectPrintTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>treeables</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pai</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>treeable</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

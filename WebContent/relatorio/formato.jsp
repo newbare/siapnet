@@ -1,0 +1,1 @@
+<input type="hidden" id="formato" name="formato" value="application/pdf"/>

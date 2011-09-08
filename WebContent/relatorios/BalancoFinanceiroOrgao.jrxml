@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BalancoFinanceiro" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="132"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="DT_INI" class="java.util.Date">
+		<parameterDescription><![CDATA[Data Inicial]]></parameterDescription>
+	</parameter>
+	<parameter name="DT_FIM" class="java.util.Date">
+		<parameterDescription><![CDATA[Data Final]]></parameterDescription>
+	</parameter>
+	<parameter name="ORGAO_ID" class="java.lang.Long">
+		<parameterDescription><![CDATA[Orgão]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+o.descricao AS org_nome,
+i.id AS item_id,
+i.nome AS item_nome,
+g.nome AS grupo_nome,
+g.codigo_siafem AS codigo_siafem,
+tm.nome AS tipo_medida_nome,
+
+(SELECT COALESCE(SUM(sub_i_entrada.quantidade), 0) FROM almoxarifado.item_entrada sub_i_entrada
+INNER JOIN almoxarifado.nota_entrada sub_ne ON (sub_ne.id = sub_i_entrada.nota_entrada_id)
+INNER JOIN almoxarifado.almoxarifado sub_a ON (sub_ne.almoxarifado_id = sub_a.id)
+INNER JOIN almoxarifado.item sub_i ON (sub_i_entrada.item_id = sub_i.id)
+INNER JOIN almoxarifado.unidade sub_u ON (sub_u.id = sub_a.unidade_id)
+INNER JOIN almoxarifado.orgao sub_o ON (sub_u.orgao_id = sub_o.id)
+WHERE sub_o.id = o.id AND sub_i.id = i.id
+AND sub_ne.tipo_entrada_id != 4
+AND (to_date(sub_ne.data::text,'YYYY-MM-DD')
+BETWEEN to_date($P{DT_INI}::text,'YYYY-MM-DD') AND to_date($P{DT_FIM}::text,'YYYY-MM-DD'))) AS quant_entrada,
+
+(SELECT COALESCE(SUM(sub_i_entrada.valor_unitario * sub_i_entrada.quantidade), 0)
+FROM almoxarifado.item_entrada sub_i_entrada
+INNER JOIN almoxarifado.nota_entrada sub_ne ON (sub_ne.id = sub_i_entrada.nota_entrada_id)
+INNER JOIN almoxarifado.almoxarifado sub_a ON (sub_ne.almoxarifado_id = sub_a.id)
+INNER JOIN almoxarifado.item sub_i ON (sub_i_entrada.item_id = sub_i.id)
+INNER JOIN almoxarifado.unidade sub_u ON (sub_u.id = sub_a.unidade_id)
+INNER JOIN almoxarifado.orgao sub_o ON (sub_u.orgao_id = sub_o.id)
+WHERE sub_o.id = o.id AND sub_i.id = i.id
+AND sub_ne.tipo_entrada_id != 4
+AND (to_date(sub_ne.data::text,'YYYY-MM-DD')
+BETWEEN to_date($P{DT_INI}::text,'YYYY-MM-DD') AND to_date($P{DT_FIM}::text,'YYYY-MM-DD'))) AS valor_entrada,
+
+(SELECT COALESCE(SUM(sub_is.quantidade), 0) FROM almoxarifado.item_saida sub_is
+INNER JOIN almoxarifado.requisicao sub_r ON (sub_is.requisicao_id = sub_r.id)
+INNER JOIN almoxarifado.almoxarifado sub_a ON (sub_r.almoxarifado_id = sub_a.id)
+INNER JOIN almoxarifado.item sub_i ON (sub_is.item_id = sub_i.id)
+INNER JOIN almoxarifado.status sub_s ON (sub_s.requisicao_id = sub_r.id)
+INNER JOIN almoxarifado.unidade sub_u ON (sub_u.id = sub_a.unidade_id)
+INNER JOIN almoxarifado.orgao sub_o ON (sub_o.id = sub_u.orgao_id)
+WHERE sub_o.id = o.id AND sub_i.id = i.id
+AND sub_r.tipo_saida_id != 2
+AND (to_date(sub_s.data_cadastro::text,'YYYY-MM-DD')
+BETWEEN to_date($P{DT_INI}::text,'YYYY-MM-DD') AND to_date($P{DT_FIM}::text,'YYYY-MM-DD'))
+AND (sub_s.tipo_status_id = 4)) AS quant_saida,
+
+(SELECT COALESCE(SUM(sub_is.quantidade * sub_is.valor_unitario), 0) FROM almoxarifado.item_saida sub_is
+INNER JOIN almoxarifado.requisicao sub_r ON (sub_is.requisicao_id = sub_r.id)
+INNER JOIN almoxarifado.almoxarifado sub_a ON (sub_r.almoxarifado_id = sub_a.id)
+INNER JOIN almoxarifado.item sub_i ON (sub_is.item_id = sub_i.id)
+INNER JOIN almoxarifado.status sub_s ON (sub_s.requisicao_id = sub_r.id)
+INNER JOIN almoxarifado.unidade sub_u ON (sub_u.id = sub_a.unidade_id)
+INNER JOIN almoxarifado.orgao sub_o ON (sub_o.id = sub_u.orgao_id)
+WHERE sub_o.id = o.id AND sub_i.id = i.id
+AND sub_r.tipo_saida_id != 2
+AND (to_date(sub_s.data_cadastro::text,'YYYY-MM-DD')
+BETWEEN to_date($P{DT_INI}::text,'YYYY-MM-DD') AND to_date($P{DT_FIM}::text,'YYYY-MM-DD'))
+AND (sub_s.tipo_status_id = 4)) AS valor_saida,
+
+(SELECT COALESCE(SUM(sub_i_entrada.quantidade), 0) FROM almoxarifado.item_entrada sub_i_entrada
+INNER JOIN almoxarifado.nota_entrada sub_ne ON (sub_ne.id = sub_i_entrada.nota_entrada_id)
+INNER JOIN almoxarifado.almoxarifado sub_a ON (sub_ne.almoxarifado_id = sub_a.id)
+INNER JOIN almoxarifado.item sub_i ON (sub_i_entrada.item_id = sub_i.id)
+INNER JOIN almoxarifado.unidade sub_u ON (sub_u.id = sub_a.unidade_id)
+INNER JOIN almoxarifado.orgao sub_o ON (sub_u.orgao_id = sub_o.id)
+WHERE sub_o.id = o.id AND sub_i.id = i.id
+AND sub_ne.tipo_entrada_id != 4
+AND (to_date(sub_ne.data::text,'YYYY-MM-DD') < to_date($P{DT_INI}::text,'YYYY-MM-DD'))) -
+
+(SELECT COALESCE(SUM(sub_is.quantidade), 0) FROM almoxarifado.item_saida sub_is
+INNER JOIN almoxarifado.requisicao sub_r ON (sub_is.requisicao_id = sub_r.id)
+INNER JOIN almoxarifado.almoxarifado sub_a ON (sub_r.almoxarifado_id = sub_a.id)
+INNER JOIN almoxarifado.item sub_i ON (sub_is.item_id = sub_i.id)
+INNER JOIN almoxarifado.status sub_s ON (sub_s.requisicao_id = sub_r.id)
+INNER JOIN almoxarifado.unidade sub_u ON (sub_u.id = sub_a.unidade_id)
+INNER JOIN almoxarifado.orgao sub_o ON (sub_o.id = sub_u.orgao_id)
+WHERE sub_o.id = o.id AND sub_i.id = i.id
+AND sub_r.tipo_saida_id != 2
+AND (to_date(sub_s.data_cadastro::text,'YYYY-MM-DD') < to_date($P{DT_INI}::text,'YYYY-MM-DD'))
+AND (sub_s.tipo_status_id = 4)) AS quant_anterior,
+
+(SELECT COALESCE(SUM(sub_i_entrada.quantidade * sub_i_entrada.valor_unitario), 0) FROM almoxarifado.item_entrada sub_i_entrada
+INNER JOIN almoxarifado.nota_entrada sub_ne ON (sub_ne.id = sub_i_entrada.nota_entrada_id)
+INNER JOIN almoxarifado.almoxarifado sub_a ON (sub_ne.almoxarifado_id = sub_a.id)
+INNER JOIN almoxarifado.item sub_i ON (sub_i_entrada.item_id = sub_i.id)
+INNER JOIN almoxarifado.unidade sub_u ON (sub_u.id = sub_a.unidade_id)
+INNER JOIN almoxarifado.orgao sub_o ON (sub_u.orgao_id = sub_o.id)
+WHERE sub_o.id = o.id AND sub_i.id = i.id
+AND sub_ne.tipo_entrada_id != 4
+AND (to_date(sub_ne.data::text,'YYYY-MM-DD') < to_date($P{DT_INI}::text,'YYYY-MM-DD'))) -
+
+(SELECT COALESCE(SUM(sub_is.quantidade * sub_is.valor_unitario), 0) FROM almoxarifado.item_saida sub_is
+INNER JOIN almoxarifado.requisicao sub_r ON (sub_is.requisicao_id = sub_r.id)
+INNER JOIN almoxarifado.almoxarifado sub_a ON (sub_r.almoxarifado_id = sub_a.id)
+INNER JOIN almoxarifado.item sub_i ON (sub_is.item_id = sub_i.id)
+INNER JOIN almoxarifado.status sub_s ON (sub_s.requisicao_id = sub_r.id)
+INNER JOIN almoxarifado.unidade sub_u ON (sub_u.id = sub_a.unidade_id)
+INNER JOIN almoxarifado.orgao sub_o ON (sub_o.id = sub_u.orgao_id)
+WHERE sub_o.id = o.id AND sub_i.id = i.id
+AND sub_r.tipo_saida_id != 2
+AND (to_date(sub_s.data_cadastro::text,'YYYY-MM-DD') < to_date($P{DT_INI}::text,'YYYY-MM-DD'))
+AND (sub_s.tipo_status_id = 4)) AS saldo_anterior
+
+FROM almoxarifado.almoxarifado a
+INNER JOIN almoxarifado.unidade u ON (a.unidade_id = u.id)
+INNER JOIN almoxarifado.orgao o ON (u.orgao_id = o.id)
+INNER JOIN almoxarifado.item_estoque i_estoque ON (i_estoque.almoxarifado_id = a.id)
+INNER JOIN almoxarifado.item i ON (i_estoque.item_id = i.id)
+INNER JOIN almoxarifado.grupo g ON (i.grupo_id = g.id)
+INNER JOIN almoxarifado.tipo_medida tm ON (i.tipo_medida_id = tm.id)
+WHERE o.id = $P{ORGAO_ID}
+GROUP BY i.id, o.descricao, i.nome, g.nome, g.codigo_siafem, tm.nome, o.id
+ORDER BY g.nome, i.nome]]>
+	</queryString>
+	<field name="org_nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="grupo_nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigo_siafem" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_medida_nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quant_entrada" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quant_saida" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quant_anterior" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor_entrada" class="java.math.BigDecimal"/>
+	<field name="saldo_anterior" class="java.math.BigDecimal"/>
+	<field name="valor_saida" class="java.math.BigDecimal"/>
+	<variable name="SUM_VALOR_saida" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_nome" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_saida}]]></variableExpression>
+	</variable>
+	<variable name="SUM_VALOR_entrada" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_nome" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_entrada}]]></variableExpression>
+	</variable>
+	<variable name="SUM_VALOR_saldo_periodo_grupo" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_nome" calculation="Sum">
+		<variableExpression><![CDATA[$V{saldo_periodo}]]></variableExpression>
+	</variable>
+	<variable name="saldo_total_grupo" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_nome" calculation="Sum">
+		<variableExpression><![CDATA[$V{saldo_total}]]></variableExpression>
+	</variable>
+	<variable name="saldo_total_total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{saldo_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="saldo_periodo_total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{saldo_periodo}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="valor_saida_total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_saida}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="valor_entrada_total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_entrada}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="saldo_periodo" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{valor_entrada}.subtract($F{valor_saida}, MathContext.DECIMAL32)]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="saldo_total" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{saldo_anterior}.add($V{saldo_periodo})]]></variableExpression>
+	</variable>
+	<variable name="saldo_anterior_grupo" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_nome" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_anterior}]]></variableExpression>
+	</variable>
+	<variable name="saldo_anterior_total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_anterior}]]></variableExpression>
+	</variable>
+	<group name="grupo_nome" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{grupo_nome}]]></groupExpression>
+		<groupHeader>
+			<band height="60">
+				<staticText>
+					<reportElement key="element-90" x="0" y="45" width="33" height="14" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cod.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-90" x="33" y="45" width="239" height="14" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Item]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-90" x="482" y="44" width="50" height="15" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[V. Entr.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-90" x="582" y="44" width="50" height="15" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[V. Saída]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-90" x="272" y="44" width="60" height="15" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Medida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-91" x="682" y="44" width="50" height="15" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[S. Total]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-1" x="0" y="59" width="780" height="1" forecolor="#666666"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement x="0" y="14" width="150" height="20"/>
+					<textElement>
+						<font fontName="SansSerif" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Grupo: "+$F{codigo_siafem}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="element-90" x="532" y="44" width="50" height="15" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Q. Saída]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-90" x="432" y="44" width="50" height="15" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Q. Entr.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-90" x="632" y="44" width="50" height="15" forecolor="#666666"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[S. Pr.]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="154" y="14" width="627" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{grupo_nome}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="382" y="44" width="50" height="15" forecolor="#666666"/>
+					<textElement textAlignment="Right" rotation="None">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[S. Ant.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="332" y="44" width="50" height="15" forecolor="#666666"/>
+					<textElement textAlignment="Right">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Q. Ant.]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField-3" x="682" y="1" width="50" height="15"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_total_grupo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField" x="632" y="1" width="50" height="15"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_VALOR_saldo_periodo_grupo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="1" width="100" height="15" forecolor="#999999"/>
+					<textElement>
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL DO GRUPO]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-2" x="0" y="0" width="780" height="1" forecolor="#000000"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField" x="482" y="1" width="50" height="15"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_VALOR_entrada}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField" x="582" y="1" width="50" height="15"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_VALOR_saida}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="382" y="1" width="50" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_anterior_grupo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="1"/>
+	</background>
+	<title>
+		<band height="2"/>
+	</title>
+	<pageHeader>
+		<band height="81">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="142" y="24" width="240" height="16"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Balanço Financeiro por Orgão - Período :                    -                           "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="false">
+				<reportElement key="textField" x="4" y="44" width="209" height="19"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-2" x="0" y="42" width="780" height="1" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-4" x="607" y="44" width="170" height="19"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER}.toString()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-5" x="378" y="24" width="76" height="16"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DT_INI}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-6" x="468" y="24" width="84" height="16"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DT_FIM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="458" y="24" width="7" height="16"/>
+				<textElement/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="9" y="0" width="768" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{org_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-4" x="567" y="62" width="210" height="16"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["* Valores, Saldos e Custo Médio em R$"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="2"/>
+	</columnHeader>
+	<detail>
+		<band height="17">
+			<rectangle>
+				<reportElement key="rectangle-1" stretchType="RelativeToBandHeight" x="0" y="0" width="780" height="15" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#DDDDDD">
+					<printWhenExpression><![CDATA[new Boolean( $V{COLUMN_COUNT}.intValue()%2==0 )]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" x="0" y="0" width="33" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{item_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" x="32" y="0" width="240" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{item_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField" x="582" y="0" width="50" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valor_saida}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" x="272" y="0" width="60" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipo_medida_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField" x="532" y="0" width="50" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{quant_saida}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField" x="432" y="0" width="50" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{quant_entrada}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField" x="482" y="0" width="50" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valor_entrada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="682" y="0" width="50" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_total}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField" x="632" y="0" width="50" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_periodo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="332" y="0" width="50" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{quant_anterior}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="382" y="0" width="50" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{saldo_anterior}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="29">
+			<line>
+				<reportElement key="line" x="0" y="7" width="780" height="1" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText-2" x="0" y="10" width="340" height="16"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sistema de Informação de  Almoxarifado e Patrimônio]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="623" y="10" width="100" height="18"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" x="724" y="10" width="55" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
