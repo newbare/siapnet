@@ -26,7 +26,7 @@
 <jsp:include page="/header.jsp" flush="true" />
 <!--content principal-->
 <div id="div_conteudo">
- 	<c:if test="${fn:length(itensEstoqueBaixo) > 0}">
+ 	<!-- <c:if test="${fn:length(itensEstoqueBaixo) > 0}">
 		<fieldset class="aviso">
 			<legend>Itens que estão com o estoque abaixo do estoque mínimo.</legend>	
 			<display:table id="ie" class="grid" name="itensEstoqueBaixo" requestURI="login.almoxarifado.logic" pagesize="10">
@@ -36,7 +36,7 @@
 					<display:column property="estoqueMinimo" sortable="true" />
 			</display:table>
 		</fieldset>
-	</c:if>
+	</c:if> -->
  	<c:if test="${fn:length(requisicoesPendentes) > 0}">
 		<fieldset class="aviso">
 			<legend>Requisições que ainda não foram avaliadas.</legend>	
