@@ -60,12 +60,12 @@
 								<c:forEach var="itemRequisitado" items="${requisicao.itensRequisitados}">
 									<c:set var="i" value="${i+1}"/>
 									<c:if test="${i % 2 != 0}">
-										<c:set var="class" value="odd"/>
+										<c:set var="classe" value="odd"/>
 									</c:if>
 									<c:if test="${i % 2 == 0}">
-										<c:set var="class" value="even"/>
+										<c:set var="classe" value="even"/>
 									</c:if>
-									<tr class="${class}">
+									<tr class="${classe}">
 										<td>${itemRequisitado.item.id}</td><td>${itemRequisitado.item.nome}</td>
 										<td align="right">
 											<fmt:formatNumber value="${itemRequisitado.qtdRequisitada}" type="NUMBER" maxFractionDigits="2" minFractionDigits="2" />
@@ -92,12 +92,12 @@
 								<c:forEach var="is" items="${requisicao.itensEnviados}">
 									<c:set var="i" value="${i+1}"/>
 									<c:if test="${i % 2 != 0}">
-										<c:set var="class" value="odd"/>
+										<c:set var="classe" value="odd"/>
 									</c:if>
 									<c:if test="${i % 2 == 0}">
-										<c:set var="class" value="even"/>
+										<c:set var="classe" value="even"/>
 									</c:if>
-									<tr class="${class}">
+									<tr class="${classe}">
 										<td>${is.item.id}</td><td>${is.item.nome}</td>
 										<td align="right">
 											<fmt:formatNumber value="${is.quantidade}" type="NUMBER" maxFractionDigits="2" minFractionDigits="2" />
