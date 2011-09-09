@@ -3,8 +3,8 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="213"/>
-	<property name="ireport.y" value="27"/>
+	<property name="ireport.x" value="23"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -213,36 +213,43 @@ ORDER BY g.nome, i.nome]]>
 					<textElement textAlignment="Right">
 						<font size="9" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_total_total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{saldo_total_total}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="632" y="0" width="50" height="15"/>
 					<textElement textAlignment="Right">
 						<font size="9" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_periodo_total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{saldo_periodo_total}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="582" y="0" width="50" height="15"/>
 					<textElement textAlignment="Right">
 						<font size="9" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{valor_saida_total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{valor_saida_total}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="482" y="0" width="50" height="15"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{valor_entrada_total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{valor_entrada_total}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="378" y="0" width="54" height="15"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_anterior_total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{saldo_anterior_total}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="15"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL GERAL]]></text>
+				</staticText>
 			</band>
 		</groupFooter>
 	</group>
@@ -336,7 +343,7 @@ ORDER BY g.nome, i.nome]]>
 					<textElement>
 						<font fontName="SansSerif" size="10" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA["Grupo: "+$F{codigo_siafem}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Grupo: "+$F{codigo_siafem}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="element-90" x="532" y="44" width="50" height="15" forecolor="#666666"/>
@@ -382,7 +389,7 @@ ORDER BY g.nome, i.nome]]>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{grupo_nome}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{grupo_nome}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="382" y="44" width="50" height="15" forecolor="#666666"/>
@@ -407,7 +414,7 @@ ORDER BY g.nome, i.nome]]>
 					<textElement textAlignment="Right">
 						<font fontName="SansSerif" size="9" isBold="false"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_total_grupo}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{saldo_total_grupo}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField" x="632" y="1" width="50" height="15"/>
@@ -420,7 +427,7 @@ ORDER BY g.nome, i.nome]]>
 					<textElement textAlignment="Right">
 						<font fontName="SansSerif" size="9" isBold="false"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_VALOR_saldo_periodo_grupo}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{SUM_VALOR_saldo_periodo_grupo}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="1" width="100" height="15" forecolor="#999999"/>
@@ -446,7 +453,7 @@ ORDER BY g.nome, i.nome]]>
 					<textElement textAlignment="Right">
 						<font fontName="SansSerif" size="9" isBold="false"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_VALOR_entrada}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{SUM_VALOR_entrada}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField" x="582" y="1" width="50" height="15"/>
@@ -459,14 +466,14 @@ ORDER BY g.nome, i.nome]]>
 					<textElement textAlignment="Right">
 						<font fontName="SansSerif" size="9" isBold="false"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_VALOR_saida}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{SUM_VALOR_saida}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
 					<reportElement x="382" y="1" width="50" height="15"/>
 					<textElement textAlignment="Right">
 						<font size="9"/>
 					</textElement>
-					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_anterior_grupo}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{saldo_anterior_grupo}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -484,7 +491,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement>
 					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Balanço Financeiro por Orgão - Período :                    -                           "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Balanço Financeiro por Orgão - Período :                    -                           "]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="false">
 				<reportElement key="textField" x="4" y="44" width="209" height="19"/>
@@ -497,7 +504,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement key="line-2" x="0" y="42" width="780" height="1" forecolor="#000000"/>
@@ -516,21 +523,21 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER}.toString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}.toString()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement key="textField-5" x="378" y="24" width="76" height="16"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[$P{DT_INI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DT_INI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement key="textField-6" x="468" y="24" width="84" height="16"/>
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[$P{DT_FIM}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DT_FIM}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement key="staticText" x="458" y="24" width="7" height="16"/>
@@ -542,7 +549,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="14" isBold="true" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{org_nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{org_nome}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement key="textField-4" x="567" y="62" width="210" height="16"/>
@@ -555,7 +562,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["* Valores, Saldos e Custo Médio em R$"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["* Valores, Saldos e Custo Médio em R$"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -580,7 +587,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Long"><![CDATA[$F{item_id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{item_id}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement key="textField" x="32" y="0" width="240" height="15"/>
@@ -593,7 +600,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement>
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{item_nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{item_nome}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="textField" x="582" y="0" width="50" height="15"/>
@@ -606,7 +613,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valor_saida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valor_saida}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement key="textField" x="272" y="0" width="60" height="15"/>
@@ -619,7 +626,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement>
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipo_medida_nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipo_medida_nome}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="textField" x="532" y="0" width="50" height="15"/>
@@ -632,7 +639,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{quant_saida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quant_saida}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="textField" x="432" y="0" width="50" height="15"/>
@@ -645,7 +652,7 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{quant_entrada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quant_entrada}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="textField" x="482" y="0" width="50" height="15"/>
@@ -658,14 +665,14 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valor_entrada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valor_entrada}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="false">
 				<reportElement key="textField" x="682" y="0" width="50" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{saldo_total}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="textField" x="632" y="0" width="50" height="15"/>
@@ -678,21 +685,21 @@ ORDER BY g.nome, i.nome]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldo_periodo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{saldo_periodo}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement x="332" y="0" width="50" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{quant_anterior}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quant_anterior}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement x="382" y="0" width="50" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{saldo_anterior}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{saldo_anterior}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -717,12 +724,12 @@ ORDER BY g.nome, i.nome]]>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField" x="623" y="10" width="100" height="18"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" isBlankWhenNull="false">
 				<reportElement key="textField" x="724" y="10" width="55" height="18"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
