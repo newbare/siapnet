@@ -243,7 +243,7 @@ public class RequisicaoLogic {
     public String gravar() {
     	requisicao.setDepartamento(authUser.getUsuarioDepartamentoAtivo().getDepartamento());
         requisicao.setUsuario(authUser);
-        requisicao.setData(new Date());
+        requisicao.setDataCadastro(new Date());
         requisicao.requerer();
         dao.save(requisicao);     
         message = "A requisição foi efetuada com sucesso. O almoxarifado irá avaliar a sua requisição.";
