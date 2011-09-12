@@ -81,6 +81,7 @@ public class FornecedorLogic {
     public FornecedorLogic(DaoFactory daoFactory, Usuario usuario) {
     	ufDao = daoFactory.getUfDao();
     	grupoDao = daoFactory.getGrupoDao();
+    	fornecedorDao = daoFactory.getFornecedorDao();
     	
         this.endereco.setMunicipio(new Municipio());
     }
