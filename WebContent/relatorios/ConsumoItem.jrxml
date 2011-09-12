@@ -29,9 +29,9 @@
 	INNER JOIN almoxarifado.almoxarifado almox ON almox.id = req.almoxarifado_id
 	INNER JOIN almoxarifado.unidade unid ON unid.id = almox.unidade_id
 	INNER JOIN almoxarifado.orgao org ON org.id = unid.orgao_id
-	INNER JOIN almoxarifado.status s ON s.id = req.status_atual_id
+	INNER JOIN almoxarifado.status s ON s.requisicao_id = req.id
 WHERE req.almoxarifado_id = $P{ALMOXARIFADO}
-AND   to_date(s.data_cadastro::text,'YYYY-MM-DD')  BETWEEN  to_date($P{DT_INI}::text,'YYYY-MM-DD') AND  to_date($P{DT_FIM}::text,'YYYY-MM-DD')
+AND   to_date(s.data_cadastro::text,'YYYY-MM-DD')  BETWEEN  to_date($P{DT_INI}::text,'YYYY-MM-DD') AND  to_date($P{DT_FIM}::text,'YYYY-MM-DD') and s.tipo_status_id = 4
 AND item.id = $P{ITEM}
 GROUP BY item.nome, item.id, org.descricao, u.nome, d.nome, med.nome
 ORDER BY item_nome, departamento, consumidor]]>
@@ -93,7 +93,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 					<textElement textAlignment="Right">
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Long"><![CDATA[$F{item_id}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{item_id}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="element-2" x="283" y="24" width="82" height="13" forecolor="#666666"/>
@@ -145,7 +145,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{item_nome}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{item_nome}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -171,7 +171,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 					<textElement>
 						<font size="10" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{item_nome}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{item_nome}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="staticText-2" x="4" y="2" width="96" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -191,7 +191,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 					<textElement textAlignment="Right">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUM_quant_saida_1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{SUM_quant_saida_1}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
 					<reportElement key="textField-6" x="467" y="2" width="65" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -204,7 +204,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 					<textElement textAlignment="Left">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{medida}+"(s)"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{medida}+"(s)"]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -222,7 +222,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Consumo de Itens - Período [                       -                       ]"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Consumo de Itens - Período [                       -                       ]"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement key="textField-2" x="1" y="48" width="209" height="19"/>
@@ -235,7 +235,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement key="line-1" x="-3" y="46" width="535" height="1" forecolor="#000000"/>
@@ -251,28 +251,28 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement key="textField-4" x="267" y="28" width="87" height="16"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[$P{DT_INI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DT_INI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement key="textField-5" x="357" y="28" width="76" height="16"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[$P{DT_FIM}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DT_FIM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="532" height="24"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{org_nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{org_nome}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -297,7 +297,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{consumidor}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{consumidor}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="false">
 				<reportElement key="textField" x="406" y="0" width="60" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -310,7 +310,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{quant_saida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quant_saida}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement key="textField-6" x="467" y="0" width="65" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -323,7 +323,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement textAlignment="Left">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{medida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{medida}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement key="textField-9" positionType="Float" isPrintRepeatedValues="false" x="4" y="0" width="275" height="14" printWhenGroupChanges="item" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -336,7 +336,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{departamento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{departamento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -356,7 +356,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
 				<reportElement key="textField" x="499" y="4" width="36" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -369,7 +369,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement key="line" x="0" y="3" width="535" height="1"/>
@@ -385,7 +385,7 @@ ORDER BY item_nome, departamento, consumidor]]>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
