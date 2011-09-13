@@ -1,0 +1,2 @@
+#Ignorando a pasta build
+build/**/*
