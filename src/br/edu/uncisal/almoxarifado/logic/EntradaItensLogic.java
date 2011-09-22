@@ -240,18 +240,6 @@ public class EntradaItensLogic {
             errors.add(new Message("aviso", "Um número para a nota de entrada não foi definido. Favor informar o número ou uma observação."));
         }
         
-        if(notaEntrada.getNumero() != null && !notaEntrada.getNumero().equals("")) {        	        	        
-        	List<NotaEntrada> exs = dao.listByExample(notaEntrada.getNumero(), notaEntrada.getFornecedor().getId());
-	        if(notaEntrada.getId() == null) {	        	
-	        	if(exs.size() > 0) {        		
-	        		errors.add(new Message("aviso", "Já existe uma nota de entrada com este número. Id da nota: " + exs.get(0).getId()));	        		
-	        	}
-	        } else {
-	        	if(exs.size() > 0 && !exs.get(0).getId().equals(notaEntrada.getId())) {
-	        		errors.add(new Message("aviso", "Já existe uma nota de entrada com este número. Id da nota: " + exs.get(0).getId()));	        	}
-	        }	        
-        }
-
         if (notaEntrada.getItensEntrada() == null || notaEntrada.getItensEntrada().size() == 0) {
             errors.add(new Message("aviso", "Nenhum item foi selecionado para a nota."));
         } else {
