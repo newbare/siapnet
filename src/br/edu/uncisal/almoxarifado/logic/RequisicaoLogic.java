@@ -423,6 +423,9 @@ public class RequisicaoLogic {
     	requisicao = dao.getById(requisicao.getId());
     	NotaEntrada n = requisicao.transferir();
     	
+    	nDao.add(n);
+    	dao.update(requisicao);
+    	
     	for (ItemEntrada ie : n.getItensEntrada()) {
 			//Se não achar um item estoque deste item pra este almoxarifado adiciona o item estoque.
 			ItemEstoque itemEstoque = iEDao.findByExample(ie.getItem(), n.getAlmoxarifado());    			
@@ -441,9 +444,7 @@ public class RequisicaoLogic {
 
 			itemEstoque.atualizaEstoque(dao.findAprovadasByItem(n.getAlmoxarifado(), ie.getItem()), nDao.list(nExample));		
 		}
-    	
-    	nDao.add(n);
-    	dao.update(requisicao);
+  
     	requisicao = dao.getById(requisicao.getId());
     	message = "Transferência realizada com sucesso!";
     	return "ok";
