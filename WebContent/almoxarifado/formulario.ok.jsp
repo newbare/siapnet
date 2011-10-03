@@ -82,7 +82,8 @@
   			</tr>	         		
                     <tr><td><label for="nome">Nome:</label></td><td><input type="text" id="nome" onblur="this.value=this.value.toUpperCase()"  name="almoxarifado.nome" value="${almoxarifado.nome}" size="50" maxlength="50" /></td></tr>
                     <tr><td><label for="responsavel">Responsável:</label></td><td><input type="text" onblur="this.value=this.value.toUpperCase()"  id="responsavel" name="almoxarifado.responsavel" value="${almoxarifado.responsavel}" size="50" maxlength="50" /></td></tr>
-                    <tr><td><label for="telefone">Telefone:</label></td><td><input type="text" id="telefone" name="almoxarifado.telefone" alt="phone" value="${almoxarifado.telefone}" size="15" maxlength="14" /></td></tr>                     
+                    <tr><td><label for="telefone">Telefone:</label></td><td><input type="text" id="telefone" name="almoxarifado.telefone" alt="phone" value="${almoxarifado.telefone}" size="15" maxlength="14" /></td></tr>
+                    <tr><td><label for="implantando">Em implantação:</label></td><td><input type="checkbox" id="implantando" name="almoxarifado.implantando"  value="true" ${almoxarifado.implantando ? "checked='checked'" : ""} /></td></tr>                     
                 </table>
             </fieldset>
             <p align="center"><input type="button" class="button" value="Salvar informações" onclick="forms[0].submit()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
