@@ -48,6 +48,8 @@ public class Almoxarifado extends Domain implements Serializable {
     private String telefone;
     @ManyToOne
     private Unidade unidade;
+    
+    private Boolean implantando;
 
     public Almoxarifado(Long id) {
         super();
@@ -98,6 +100,18 @@ public class Almoxarifado extends Domain implements Serializable {
         return unidade;
     }
     
+	public Boolean isImplantando() {
+		return implantando;
+	}
+    
+	public Boolean getImplantando() {
+		return implantando;
+	}
+
+	public void setImplantando(Boolean implantando) {
+		this.implantando = implantando;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

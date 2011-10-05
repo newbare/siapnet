@@ -20,7 +20,9 @@ package br.edu.uncisal.almoxarifado.logic;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -232,26 +234,24 @@ public class EntradaItensLogic {
 	}
 
     public void validateGravar(ValidationErrors errors) {    	
-        if (notaEntrada.getData() == null || notaEntrada.getData().equals("")) {
+        //Verifica se o almoxarifado está em implantação para permitir a entrada por nota inicial.
+    	notaEntrada.setAlmoxarifado(almoxarifadoDao.getById(notaEntrada.getAlmoxarifado().getId()));
+    	
+    	if(!notaEntrada.getAlmoxarifado().isImplantando() && notaEntrada.getTipoEntrada().getId().equals(0L))
+    		errors.add(new Message("aviso", "Não é permitida a entrada inicial quando o almoxarifado não está em implantação."));
+    		
+    	if (notaEntrada.getData() == null || notaEntrada.getData().equals("")) {
             errors.add(new Message("aviso", "A data de entrada não foi definida."));
         }
-
-        if ((notaEntrada.getNumero() == null || notaEntrada.getNumero().equals("")) && (notaEntrada.getObservacao() == null || notaEntrada.getObservacao().equals(""))) {
-            errors.add(new Message("aviso", "Um número para a nota de entrada não foi definido. Favor informar o número ou uma observação."));
+    	
+    	Calendar c = Calendar.getInstance();
+    	c.clear();
+    	c.set(2011, 9, 1);  	
+    	
+        if ((notaEntrada.getNumero() == null || notaEntrada.getNumero().equals("")) && notaEntrada.getData().after(c.getTime())) {
+            errors.add(new Message("aviso", "Um número para a nota de entrada não foi definido."));
         }
         
-        if(notaEntrada.getNumero() != null && !notaEntrada.getNumero().equals("")) {        	        	        
-        	List<NotaEntrada> exs = dao.listByExample(notaEntrada.getNumero(), notaEntrada.getFornecedor().getId());
-	        if(notaEntrada.getId() == null) {	        	
-	        	if(exs.size() > 0) {        		
-	        		errors.add(new Message("aviso", "Já existe uma nota de entrada com este número. Id da nota: " + exs.get(0).getId()));	        		
-	        	}
-	        } else {
-	        	if(exs.size() > 0 && !exs.get(0).getId().equals(notaEntrada.getId())) {
-	        		errors.add(new Message("aviso", "Já existe uma nota de entrada com este número. Id da nota: " + exs.get(0).getId()));	        	}
-	        }	        
-        }
-
         if (notaEntrada.getItensEntrada() == null || notaEntrada.getItensEntrada().size() == 0) {
             errors.add(new Message("aviso", "Nenhum item foi selecionado para a nota."));
         } else {
