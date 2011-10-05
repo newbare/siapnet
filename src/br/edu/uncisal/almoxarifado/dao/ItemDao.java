@@ -117,7 +117,7 @@ public class ItemDao extends Dao<Item> {
 			" SELECT *"
 			+ " FROM almoxarifado.item i "
 			+ " JOIN almoxarifado.tipo_medida tm ON (tm.id = i.tipo_medida_id) "
-			+ " JOIN almoxarifado.grupo g 		ON (g.id = i.grupo_id) "
+			+ " LEFT JOIN almoxarifado.grupo g ON (g.id = i.grupo_id) "
 			+ " WHERE sem_acentos(i.nome) ilike sem_acentos('%" + criteria + "%')"
 		);
     	

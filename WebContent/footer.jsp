@@ -21,7 +21,7 @@
 
 <!--footer-->
 <div id="div_rodape">
-    <strong>SIAPNET - Sistema de Informação de Almoxarifado e Patrimônio&nbsp;- V. 1.6.7&nbsp;</strong><br />
+    <strong>SIAPNET - Sistema de Informação de Almoxarifado e Patrimônio&nbsp;- V. 1.6.8&nbsp;</strong><br />
     Acordo de Cooperação Técnica ITEC/UNCISAL - 2008&nbsp;<br />
     Desenvolvido por : <a href="http://www.uncisal.edu.br" >UNCISAL</a><a href="http://www.uncisal.edu.br/cetis"> - GTIN (CETIS)</a>&nbsp;<br />
 </div>
