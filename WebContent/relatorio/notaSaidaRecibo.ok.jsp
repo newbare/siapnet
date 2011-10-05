@@ -32,7 +32,7 @@
         document.getElementById("depto").value=dpto;
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label
             class="lbTituloLegend">Buscar Recibo de retirada de itens</label> |</b></legend>
         <h3>Selecione o setor do qual pertence o consumidor em que a requisição foi entregue.</h3>

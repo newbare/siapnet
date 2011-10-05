@@ -22,7 +22,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <jsp:include page="/header.jsp" flush="true" />
-    <div id="div_conteudo">
+    <div id="conteudo">
 <fieldset><legend><b>| <label class="lbTituloLegend">Confirmação da entega de requisição</label> |</b></legend>      
 	  <h3>Dados da requisição: </h3>
 		<form method="post" action="requisicao.entregar.logic">

@@ -34,7 +34,7 @@
   </head>
   <body>
     <jsp:include page="/header.jsp" flush="true" />
-    <div id="div_conteudo">
+    <div id="conteudo">
       <h2>Relatórios</h2>
       <display:table id="relatorio" class="grid" name="relatorios" pagesize="10" requestURI="relatorio.listAll.logic">
 	    	<display:column property="id"/>

@@ -26,7 +26,7 @@
 	    $("#servidores").load("patrimonio.loadUsuarios.logic", {"departamento.id": id});
 	}
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
 <form method="post" action="patrimonio.transfere.logic">
 <fieldset><legend><b>| <label
 	class="lbTituloLegend">Transferencia de Bem Permanente Tombado</label>

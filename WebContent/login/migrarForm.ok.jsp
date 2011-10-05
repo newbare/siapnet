@@ -32,7 +32,7 @@
 </head>
 <jsp:include page="/header.jsp" flush="true" />
 <!--content principal-->
-<div id="div_conteudo">
+<div id="conteudo">
     <form method="post" action="login.migrar.logic">
         <fieldset style="width: 40%; margin-left: 30%"><legend>Digite seu e-mail, cpf e senha para fazer as alterações.</legend>
             <table align="center">

@@ -28,7 +28,7 @@
 
 
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Fornecedor</label> |</b></legend>
         <form method="post" action="fornecedor.gravar.logic"><input
                 type="hidden" name="fornecedor.id" value="${fornecedor.id}" />

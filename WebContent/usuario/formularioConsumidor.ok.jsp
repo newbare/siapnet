@@ -42,7 +42,7 @@
         return validarCPF(cpfUser);
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Consumidor</label> |</b></legend>
         <c:choose>
             <c:when test="${consumidor.id==null}">

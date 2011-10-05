@@ -32,7 +32,7 @@
         $("#usuarios").load("usuario.loadUsuarios.logic", {"unidade.id": id});        
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Listagem de usuarios</label> |</b></legend>
 	<c:choose>
 		<c:when test="${fn:length(orgaos) == 1}">

@@ -47,7 +47,7 @@
             "fornecedor.razaoSocial":razao});
     }
 </script>  
-<div id="div_conteudo">
+<div id="conteudo">
   <form method="post" action="fornecedor.buscar.logic">
     <fieldset><legend><b>| <label class="lbTituloLegend">Busca de Fornecedor</label> |</b></legend>
       <h3>Preencha os dados do formulário para definir o critério da busca de fornecedor:</h3>

@@ -44,7 +44,7 @@
             $("#parametros").load("relatorio.remParam.logic", {"parametro.id": paramId});
         }
 </script>    
-<div id="div_conteudo">
+<div id="conteudo">
 	<form action="relatorio.gravar.logic" method="post">
 		<fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Relatório</label> |</b></legend>
            	<input type="hidden" name="relatorio.id" id="relatorio.id" value="${relatorio.id}">

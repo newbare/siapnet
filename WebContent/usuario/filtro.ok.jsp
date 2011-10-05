@@ -73,7 +73,7 @@
 
     
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Busca de Usuário</label> |</b></legend>
         <h3>Preencha os dados para os critérios da busca de usuários:</h3>
         <form method="post" name="filtroForm">

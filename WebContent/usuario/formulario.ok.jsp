@@ -62,7 +62,7 @@
         $("#usuarioDepartamentos").load("usuario.remUsuarioDepartamento.logic", {"departamento.id": dId});
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Usuário</label> |</b></legend>
         <c:choose>
             <c:when test="${usuario.id==null}">

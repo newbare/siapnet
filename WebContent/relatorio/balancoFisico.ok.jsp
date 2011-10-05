@@ -48,7 +48,7 @@
         return true;
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Relatório Balanço Físico</label> |</b></legend>
         <form method="post" action="geraRelatorio" accept-charset="utf-8" onsubmit="return validar();"  target="_blank">
             <div id="almox">

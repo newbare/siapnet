@@ -25,7 +25,7 @@
         document.forms[0].submit();
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
 <jsp:include page="/fornecedor/form.jsp" flush="true" />
 <p align="center"><input type="button" id="voltar" class="button" name="voltar" value="Voltar" onclick="history.back(-1)" /></p>
 </div>

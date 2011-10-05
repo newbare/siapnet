@@ -23,7 +23,7 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
     <div class="div_principal">
         <form action="/almoxarifado/ajuda.suporteEnviar.logic" method="post" name="addform">
             <fieldset class="fieldset">

@@ -37,7 +37,7 @@
     });
 </script>
 <script type="text/javascript" charset="utf-8" src="/almoxarifado/js/hints.js"></script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset>
     	<legend><b>| <label class="lbTituloLegend">Parâmetros de Item em Estoque</label> |</b></legend>
         <c:choose>

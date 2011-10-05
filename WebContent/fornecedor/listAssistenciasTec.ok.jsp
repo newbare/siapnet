@@ -32,7 +32,7 @@
   </head>
   <body>
     <jsp:include page="/header.jsp" flush="true" />
-    <div id="div_conteudo">
+    <div id="conteudo">
       <h2>Listagem de assistencias técnicas</h2>
       <display:table id="fornecedor" class="grid" name="fornecedores" pagesize="10" requestURI="fornecedor.listAll.logic">
         <display:column title="Id">

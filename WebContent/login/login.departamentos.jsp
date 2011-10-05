@@ -32,7 +32,7 @@
 </head>
 <jsp:include page="/header.jsp" flush="true" />
 <!--content principal-->
-<div id="div_conteudo">
+<div id="conteudo">
     <br />
     <form method="post" action="login.loginDepartamento.logic">
         <fieldset><legend>Autenticação de usuário</legend>

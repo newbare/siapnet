@@ -23,7 +23,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="br.edu.uncisal.almoxarifado.model.TipoStatus"%>
     <jsp:include page="/header.jsp" flush="true" />
-    <div id="div_conteudo">
+    <div id="conteudo">
       <fieldset><legend><b>| <label class="lbTituloLegend">Detalhes da Requisição</label> |</b></legend>
 	  <h3>Dados da requisição: </h3>
 		<table width="500px;">

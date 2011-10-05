@@ -48,7 +48,7 @@
         return false;
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <form method="post" action="patrimonio.enviar.logic" accept-charset="utf-8">
         <input type="hidden" name="patrimonio.itemEntrada.id" value="${patrimonio.itemEntrada.id}"/>
         <fieldset><legend><b>| <label class="lbTituloLegend">Bem Permanente Tombado</label> |</b></legend>

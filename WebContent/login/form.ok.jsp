@@ -33,7 +33,7 @@
 	}
 </script>
 <!--content principal-->
-<div id="div_conteudo">
+<div id="conteudo">
     <br />
     <form method="post" action="login.login.logic" >
         <input type="hidden" id="msie" name="msie" value="" />

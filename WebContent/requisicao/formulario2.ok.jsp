@@ -36,7 +36,7 @@
         document.getElementById("codItem").focus();
     });
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Requerimento de material - passo 2</label> |</b></legend>
         <form method="post" action="requisicao.gravar.logic"><input type="hidden" name="requisicao.id" value="${requisicao.id}" />
             <h3>Escolha os materiais, digitando o nome do item e selecionando-o do catálogo existente. E informe a quantidade pretendida.</h3>

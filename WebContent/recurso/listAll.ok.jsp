@@ -23,7 +23,7 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@ taglib uri ="/tags/uncisal" prefix ="u"%>
 <jsp:include page="/header.jsp" flush="true"/>
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Listagem de recursos(URI)</label> |</b></legend>
 	<u:treePrintList treeables="${recursos}" checkeable="false"/>
   </fieldset>

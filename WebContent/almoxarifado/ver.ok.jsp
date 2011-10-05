@@ -21,7 +21,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/header.jsp" flush="true"/>
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Almoxarifado</label> |</b></legend>
   <c:choose>
     <c:when test="${almoxarifado.id==null}">

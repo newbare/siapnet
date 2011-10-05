@@ -44,7 +44,7 @@
     	$("#consumidores").load("requisicao.loadConsumidores.logic", {"departamento.id": deptoId });
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset class="notaSaida"><legend><b>| <label class="lbTituloLegend">Nota de Saída - Requerimento de material</label> |</b></legend>
         <form method="post" action="requisicao.notaSaidaGravar.logic" name="formRequisicao"><input type="hidden" name="requisicao.id" value="${requisicao.id}" />
             <input type="hidden" name="requisicao.almoxarifado.id" value="${requisicao.almoxarifado.id}" />

@@ -23,7 +23,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
 	<fieldset><legend><b>| <label class="lbTituloLegend">Histórico de requisições</label> |</b></legend>
 	<display:table id="requisicao" class="grid" name="requisicoes" requestURI="requisicao.listAprovadas.logic" pagesize="20">
 	    <display:column title="Id">

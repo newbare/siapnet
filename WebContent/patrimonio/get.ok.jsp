@@ -32,7 +32,7 @@
         return false;
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Tombamento de Bens Permantentes</label> |</b></legend>
         <form method="post" action="patrimonio.gravar.logic" accept-charset="utf-8">
             <fieldset><legend>Item Permantente</legend>

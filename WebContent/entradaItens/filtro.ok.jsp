@@ -67,7 +67,7 @@
         });
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Procurar nota de entrada</label> |</b></legend>
         <h3>Preencha os critérios que queira usar para buscar a nota de entrada de itens desejada :</h3>
         <form action="#" method="POST" >

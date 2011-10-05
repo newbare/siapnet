@@ -47,7 +47,7 @@
             "almoxarifado.telefone":phone});
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Busca de de Almoxarifado</label> |</b></legend>
         <h3>Preencha os critérios de busca para procurar os almoxarifados desejados:</h3>
         <form method="post" action="almoxarifado.gravar.logic">

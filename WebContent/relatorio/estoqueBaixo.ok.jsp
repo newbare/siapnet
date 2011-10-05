@@ -21,7 +21,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
   <form method="post" action="geraRelatorio" accept-charset="utf-8"   target="_blank">
   <fieldset><legend><b>| <label class="lbTituloLegend">Relatório do Estoque Baixo (Itens em falta)</label> |</b></legend>
      <input type="hidden" name="relatorio" id="relatorio" value="EstoqueBaixo" />

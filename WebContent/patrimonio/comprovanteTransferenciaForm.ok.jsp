@@ -27,7 +27,7 @@
         $("#transferencias").load("patrimonio.loadTransferencias.logic", {"departamento.id": id});
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
 	<h2>Emissão de comprovante de transferência</h2>
 	<label for="departamento.id">Escolha o departamento de destino cujo a transferência foi efetuada: </label><br/>
 	<select name="departamento.id" onchange="loadTransferencias(this.value)">

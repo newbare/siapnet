@@ -32,7 +32,7 @@
         $("#recursos").load("recurso.gravar.logic", {"recurso.nome" : nome , "recurso.uri": uri , "recurso.pai.id" : pai});
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Perfil</label> |</b></legend>
     <c:choose>
       <c:when test="${perfil.id==null}">

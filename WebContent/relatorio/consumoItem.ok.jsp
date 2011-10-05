@@ -58,7 +58,7 @@
     }
 </script>
 
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Relatório de Consumo Material de um Item específico</label> |</b></legend>
         <form method="post" action="geraRelatorio" accept-charset="utf-8" onsubmit="return validar();"  target="_blank">
             <input type="hidden" name="relatorio" value="ConsumoItem" />

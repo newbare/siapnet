@@ -21,7 +21,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
   <div id="errors">
     <ul>
       <c:forEach var="error" items="${errors.iterator}">

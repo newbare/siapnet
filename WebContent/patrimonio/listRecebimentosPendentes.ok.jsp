@@ -22,7 +22,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Movimentação de bens tombados pelo patrimônio</label> |</b></legend>
     <fieldset><legend>Transferência de Bens pendentes no Setor/Orgão : ${authUser.usuarioDepartamentoAtivo.departamento.nome} /${authUser.usuarioDepartamentoAtivo.departamento.unidade.orgao.sigla} </legend>
       <display:table id="transf" class="grid" name="listaTransfPatrimonio" pagesize="10" requestURI="patrimonio.listaTransferencias.logic">

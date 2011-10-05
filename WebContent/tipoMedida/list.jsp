@@ -41,7 +41,7 @@
 <c:if test="${criteria != null}">
 	<c:set var="paginas" value="0" />
 </c:if>
-<div id="div_conteudo">
+<div id="conteudo">
 	<fieldset>
 		<legend>
 			<label class="lbTituloLegend"> Busca de Unidades de Medidas </label>

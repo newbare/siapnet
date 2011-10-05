@@ -23,7 +23,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
 <fieldset><legend><b>|<label class="lbTituloLegend">Transferência de Bem Permanente Tombado</label>|</b></legend>
 <table>
 	<tr>

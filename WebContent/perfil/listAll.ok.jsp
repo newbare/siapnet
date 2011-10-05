@@ -22,7 +22,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <jsp:include page="/header.jsp" flush="true"/>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Listagem de perfis de acesso</label> |</b></legend>
      <display:table id="perfil" class="grid" name="perfis" pagesize="10" requestURI="perfil.listAll.logic">
          <display:column title="Id"><a href="perfil.get.logic?perfil.id=${perfil.id}">${perfil.id}</a></display:column>

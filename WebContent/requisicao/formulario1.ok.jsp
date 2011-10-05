@@ -21,7 +21,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Requerimento de material - passo 1</label> |</b></legend>
         <h3>Escolha o almoxarifado para qual deseja requerer material.</h3>
         <form method="post" action="requisicao.formulario2.logic">

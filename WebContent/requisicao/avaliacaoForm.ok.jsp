@@ -34,7 +34,7 @@
   </head>
   <body>
     <jsp:include page="/header.jsp" flush="true" />
-    <div id="div_conteudo">
+    <div id="conteudo">
       <fieldset><legend><b>| <label class="lbTituloLegend">Avaliação da Requisição</label> |</b></legend>
 	  <h3>Dados da requisição: </h3>
 		<form method="post" action="requisicao.avaliar.logic">	

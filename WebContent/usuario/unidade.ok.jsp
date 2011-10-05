@@ -22,7 +22,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/header.jsp" flush="true" />
 <!--content principal-->
-<div id="div_conteudo">
+<div id="conteudo">
     <br />
     <form method="post" action="usuario.cadastrarUnidade.logic" >
         <input type="hidden" id="msie" name="msie" value="" />

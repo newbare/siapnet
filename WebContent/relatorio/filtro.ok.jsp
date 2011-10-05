@@ -29,7 +29,7 @@
         }
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Relatórios</label> |</b></legend>
     <form method="post" action="geraRelatorio" accept-charset="utf-8">
       <label for="relatorio">Relatório : </label>

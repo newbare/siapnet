@@ -25,7 +25,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:include page="/header.jsp" flush="true" />
 <!--content principal-->
-<div id="div_conteudo">
+<div id="conteudo">
  	<!-- <c:if test="${fn:length(itensEstoqueBaixo) > 0}">
 		<fieldset class="aviso">
 			<legend>Itens que estão com o estoque abaixo do estoque mínimo.</legend>	

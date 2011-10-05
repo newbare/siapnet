@@ -49,7 +49,7 @@
       }
   </script>
 </head>
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Busca de item em estoque</label> |</b></legend>
     <form method="post" action="itemEstoque.buscar.logic" accept-charset="utf-8">
       <table>

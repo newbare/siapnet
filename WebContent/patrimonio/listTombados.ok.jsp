@@ -26,7 +26,7 @@ function loadBens(id) {
     $("#bens").load("patrimonio.loadItensTombados.logic", {"departamento.id": id});
 }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
 	<h2>Listagem de itens permanentes tombados pelo patrimônio</h2>
 	<label for="departamento.id">Selecione um departamento:</label>
 	<select name="departamento.id" id="departamento.id" onchange="loadBens(this.value);">

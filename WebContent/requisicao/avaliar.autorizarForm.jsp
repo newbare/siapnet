@@ -29,7 +29,7 @@ $(document).ready(function() {
 	$("input:text").setMask();
 });
 </script>
-    <div id="div_conteudo">
+    <div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Avaliação da Requisição</label> |</b></legend>
 	  <h3><label>Dados da requisição: </label></h3>
 		<form method="post" action="requisicao.autorizar.logic">

@@ -35,7 +35,7 @@
         document.getElementById("nomeDescritivo").value = nomeDesc;
 </script>
 
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de item para o catálogo</label> |</b></legend>
         <c:choose>
             <c:when test="${departamento.id==null}">

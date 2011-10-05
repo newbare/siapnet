@@ -100,7 +100,7 @@
         }
     }  
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Entrada de itens</label> |</b></legend>
     <c:choose>
       <c:when test="${notaEntrada.id==null}">

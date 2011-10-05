@@ -34,7 +34,7 @@
   </head>
   <body>
     <jsp:include page="/header.jsp" flush="true" />
-    <div id="div_conteudo">
+    <div id="conteudo">
       <fieldset><legend><b>| <label class="lbTituloLegend">Requisições aguardando entrega</label> |</b></legend>
 		<display:table id="requisicao" class="grid" name="requisicoes" requestURI="requisicao.listAprovadas.logic">
 	    	<display:column property="id"/>

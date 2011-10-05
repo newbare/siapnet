@@ -48,7 +48,7 @@
             $("#itensPermanentes").load(url);
     }
 </script>  
-<div id="div_conteudo">
+<div id="conteudo">
   <form method="post" action="patrimonio.buscar.logic">
     <fieldset><legend><b>| <label class="lbTituloLegend">Busca de Bens Permanentes Tombados</label> |</b></legend>
     <input type="hidden" name="patrimonio.itemEntrada.notaEntrada.almoxarifado.id" value="${patrimonio.itemEntrada.notaEntrada.almoxarifado.id}" />

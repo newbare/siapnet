@@ -48,7 +48,7 @@
     }
 </script>
 
-<div id="div_conteudo">
+<div id="conteudo">
     <form action="/almoxarifado/patrimonio.autorizarSaida.logic" method="post">
         <fieldset><legend><label>Transferencia de bens patrimoniais</label></legend>
 

@@ -22,7 +22,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Listagem de tipo de fornecedores</label> |</b></legend>
         <display:table id="tipoFornecedor" class="grid" name="tipoFornecedores" pagesize="10" requestURI="tipoFornecedor.listAll.logic">
             <display:column title="Id">

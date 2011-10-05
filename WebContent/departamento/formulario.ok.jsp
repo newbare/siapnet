@@ -44,7 +44,7 @@
     }    
 </script>
 
-<div id="div_conteudo">
+<div id="conteudo">
 <c:choose>
   <c:when test="${departamento.id==null}">
     <h3>Preencha os dados do formulário para cadastrar um novo departamento:</h3>

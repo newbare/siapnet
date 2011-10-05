@@ -27,6 +27,6 @@
 	Navegador incompatível com o sistema.<br/>
     Baixe um navegador compatível.
 </p></div></div>
-<div id="div_conteudo">
+<div id="conteudo">
 </div>
 <jsp:include page="/footer.jsp" flush="true" />

@@ -21,7 +21,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/header.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Relatório de itens com valor fora da média</label> |</b></legend>
         <form method="post" action="geraRelatorio" accept-charset="utf-8" target="_blank">
         	<input type="hidden" name="ALMOXARIFADO_ID" value="${almoxarifadoId}" />

@@ -29,7 +29,7 @@
         $("#unidades").load("almoxarifado.loadUnidades.logic", {"orgao.id": id});
     }  
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Almoxarifado</label> |</b></legend>
         <c:choose>
             <c:when test="${almoxarifado.id==null}">

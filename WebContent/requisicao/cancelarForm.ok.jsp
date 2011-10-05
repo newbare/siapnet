@@ -30,7 +30,7 @@ $(document).ready(function() {
 });
 </script>
 
-<div id="div_conteudo">
+<div id="conteudo">
     <fieldset style="width: 50%;"><legend><b>| <label class="lbTituloLegend">Cancelar requisição</label> |</b></legend>
         <h3>Digite o código da requisição para que a mesma seja cancelada.</h3>
         Código: 

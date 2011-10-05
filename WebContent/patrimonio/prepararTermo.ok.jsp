@@ -26,7 +26,7 @@
         $("input:text").setMask();
     });
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
   <form action="/almoxarifado/patrimonio.termoResponsabilidade.logic" method="post">
     <fieldset><legend>Emitir Termo de Responsabilidade</legend>
       <table>

@@ -12,7 +12,7 @@
         fechar();
     }
 </script>
-        <div id="div_conteudo">
+        <div id="conteudo">
 <jsp:include page="/fornecedor/form.jsp" flush="true" />
 </div>
         <p><input type="button" class="button"  value="Fechar" onclick="fecha()"/></p>

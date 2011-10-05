@@ -51,7 +51,7 @@
         
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
   <form method="post" action="geraRelatorio" accept-charset="utf-8" onsubmit="return validar();"  target="_blank">
   <fieldset><legend><b>| <label class="lbTituloLegend">Relatório de Nota de Saída por Setor</label> |</b></legend>
       <input type="hidden" id="deptoId" name="deptoId" />

@@ -18,7 +18,7 @@
  * along with SIAPNET.  If not, see <http://www.gnu.org/licenses/>.
  */
 %>
-<div id="div_conteudo">
+<div id="conteudo">
   <div class="div_principal">
     <form action="/ajuda.suporteEnviar.logic" method="post" name="addform">
       <fieldset class="fieldset">

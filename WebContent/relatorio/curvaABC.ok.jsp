@@ -24,7 +24,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="pt_BR" scope="application"/>
-<div id="div_conteudo">
+<div id="conteudo">
 	<h2>Relatório de Curva ABC</h2>    	
 	<table style="width: 90%; text-align: left;" class="grid">					
 		<thead>

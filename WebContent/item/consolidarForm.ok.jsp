@@ -52,7 +52,7 @@
 		$("input:text").setMask();
 	});
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
 <h2>Consolidação de itens</h2>
 <form method="post" action="item.consolidar.logic" accept-charset="utf-8">
 	<fieldset>

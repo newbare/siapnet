@@ -25,7 +25,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:include page="/header.jsp" flush="true" />
 <!--content principal-->
-<div id="div_conteudo">
+<div id="conteudo">
 <br />
 </div>
 <jsp:include page="/footer.jsp" flush="true" />

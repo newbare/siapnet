@@ -45,7 +45,7 @@
         $("#tombos").load("patrimonio.remTomboTransferencia.logic", {"patrimonio.id": pId});
     }
 </script>
-<div id="div_conteudo">
+<div id="conteudo">
     <form action="/almoxarifado/patrimonio.autorizarSaida.logic" method="post">
         <fieldset><legend>Movimentação - Transferência de Bens</legend>
             <table>

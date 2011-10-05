@@ -20,7 +20,7 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/headerModal.jsp" flush="true" />
-<div id="div_conteudo">
+<div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de item para o catálogo</label> |</b></legend>
       <input type="hidden" name="item.id" value="${item.id}"/>
       <table>

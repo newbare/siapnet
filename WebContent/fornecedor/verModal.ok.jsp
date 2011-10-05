@@ -15,7 +15,7 @@
   </style>
 </head>
 <body>
-  <div id="div_conteudo" style="width:490px">
+  <div id="conteudo" style="width:490px">
     <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Fornecedor</label> |</b></legend>
       <h3>Informações do cadastro do fornecedor:</h3>
       <fieldset>
