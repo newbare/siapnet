@@ -322,8 +322,7 @@ public class RequisicaoLogic {
         return "ok";
     }
 
-    public String avaliar() throws NotFoundException {
-    	requisicao = dao.getById(requisicao.getId());          
+    public String avaliar() throws NotFoundException {          
         if (aval.equals(TipoStatus.BLOQUEADO)) {
         	requisicao.bloquear(comentario);
         	dao.update(requisicao);
@@ -342,17 +341,18 @@ public class RequisicaoLogic {
     }
 
     public void validateAvaliar(ValidationErrors errors) {
+    	requisicao = dao.getById(requisicao.getId());
+    	
         if (aval.equals(TipoStatus.BLOQUEADO) && comentario.equals("")) {
             errors.add(new Message("aviso", "Para bloquear uma requisição é necessário fazer uma justificativa."));
         }
-
+        
         if (errors.size() > 0) {
             this.requisicao = dao.getById(requisicao.getId());
         }
     }
 
     public String autorizar() {
-        requisicao = dao.getById(requisicao.getId());
         requisicao.autorizar(itensEnviados, comentario);
         
         for (ItemSaida is : requisicao.getItensEnviados()) {        	
@@ -371,6 +371,7 @@ public class RequisicaoLogic {
     }
 
     public void validateAutorizar(ValidationErrors errors) {
+    	requisicao = dao.getById(requisicao.getId());
     	//Insere manualmente os valores das quantidades de saída devido a limitações do vraptor 2    	
     	for(int i = 0; i < itensEnviados.size(); i++) {
     		String qtd = iEQtd.get(i).replace(".", "").replace(",", ".");    		
@@ -386,6 +387,9 @@ public class RequisicaoLogic {
                 errors.add(new Message("aviso", "Não existem itens suficientes para o estoque. A quantidade para o item: " + ie.getItem().getNome() + " é: " + ie.getEstoque()));
             }
         }
+        
+        if(requisicao.verificaStatus(TipoStatus.APROVADO))
+        	errors.add(new Message("aviso", "Requisição já aprovada, talvez o usuário tenha clicado duas vezes ou apertado F5."));
         
         //Libera o conteúdo
         iEQtd = null;

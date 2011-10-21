@@ -3,7 +3,6 @@
     <wb-module deploy-name="almoxarifado">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/tests"/>
         <property name="context-root" value="almoxarifado"/>
         <property name="java-output-path"/>
     </wb-module>

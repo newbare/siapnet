@@ -355,5 +355,16 @@ public class Requisicao extends Domain implements Serializable, Datable {
 		
 		return itens;
 	}
+	
+	/**
+	 * Retornar verdadeiro caso a requisição já possui o tipo de status passado.
+	 */
+	public Boolean verificaStatus(Long tipoStatusId) {
+		for (Status s : getStatus()) {
+			if(s.getTipoStatus().getId().equals(tipoStatusId))
+				return true;
+		}
+		return false;		
+	}
     
 }
