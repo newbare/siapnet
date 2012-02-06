@@ -39,6 +39,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.edu.uncisal.almoxarifado.util.EstoqueException;
 
@@ -108,6 +109,17 @@ public class Requisicao extends Domain implements Serializable, Datable {
     @ManyToOne
     @JoinColumn(name = "almoxarifado_requisitante_id")
     private Almoxarifado almoxarifadoRequisitante;
+    
+    @Transient
+    private String justificativaCancelamento;
+    
+    public String getJustificativaCancelamento() {
+		return justificativaCancelamento;
+	}
+    
+    public void setJustificativaCancelamento(String justificativaCancelamento) {
+		this.justificativaCancelamento = justificativaCancelamento;
+	}
     
     public Requisicao() {
         itensRequisitados = new ArrayList<ItemRequisicao>();

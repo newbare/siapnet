@@ -360,7 +360,7 @@ public class UsuarioLogic {
     		usuarios = usuarioDao.buscar(usuario, unidade, desativado);
     	else
     		return "invalid";
-
+    	
         return "ok";
     }
 

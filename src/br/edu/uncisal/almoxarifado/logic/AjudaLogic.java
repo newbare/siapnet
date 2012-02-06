@@ -63,7 +63,7 @@ public class AjudaLogic {
     private String message;
 
     public AjudaLogic(DaoFactory daoFactory) {
-        mailServer = "mail.uncisal.edu.br";
+        mailServer = "smtp.itec.al.gov.br";
     }
 
     public String info() {
@@ -92,7 +92,7 @@ public class AjudaLogic {
                     fromName,
                     fromEmail,
                     "Desenvolvimento do SIAPnet(Almoxarifado & Patrimonio)",
-                    "cetis.dev@uncisal.edu.br", 
+                    "almoxarifado@itec.al.gov.br",  
                     sb.toString(),
                     subjectEmail);
         } catch (EmailException ex) {

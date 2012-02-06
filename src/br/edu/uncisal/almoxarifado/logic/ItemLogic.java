@@ -206,6 +206,13 @@ public class ItemLogic {
         item = itemDao.getById(item.getId());
         return "ok";
     }
+    
+    /** Retorna o item, usado para retornar o nome e id do item, na busca pelo id */
+    public String verItemEstoque() {
+    	item = itemDao.getById(item.getId());
+    	return "ok";
+    }
+    
     /** Retorna a lista de Itens conforme parâmetro passado da busca */
     public String buscarItens() {
     	if(!authUser.getUsuarioDepartamentoAtivo().getPerfil().getId().equals(Perfil.ALMOXARIFE))

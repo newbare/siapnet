@@ -29,15 +29,17 @@
 	    <display:column title="Id">
 	      <a href="requisicao.acompanharDetalhes.logic?requisicao.id=${requisicao.id}">${requisicao.id}</a>
 	    </display:column>
-		<display:column title="requisitante" property="usuario.nome" sortable="true"/>
-		<display:column title="estado" property="statusAtual.tipoStatus.nome" sortable="true"/>
-		<display:column title="data de requisição" sortable="true">
+		<display:column title="Requisitante" property="usuario.nome" sortable="true"/>
+		<display:column title="Estado" property="statusAtual.tipoStatus.nome" sortable="true"/>
+		<display:column title="Data de requisição" sortable="true">
 			<fmt:formatDate value="${requisicao.dataCadastro}" pattern="dd-MM-yyyy HH:mm"/>
 		</display:column>
-		<display:column title="comprovante">
-			 <c:if test="${requisicao.statusAtual.tipoStatus.id == 4 || requisicao.statusAtual.tipoStatus.id == 5}" >
-			 	<input type="button" class="button" onclick="emitirRecibo(${requisicao.id})" value="EMITIR">
-			 </c:if>
+		<display:column title="Comprovante">
+			<div align="center">
+				 <c:if test="${requisicao.statusAtual.tipoStatus.id == 4 || requisicao.statusAtual.tipoStatus.id == 5}" >
+				 	<input type="button" class="button" onclick="emitirRecibo(${requisicao.id})" value="EMITIR">
+				 </c:if>
+			</div>
 		</display:column>
 	</display:table>	      
 	</fieldset>

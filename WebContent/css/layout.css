@@ -40,7 +40,7 @@ img {
 #conteudo {
     font-size: 9pt;
     clear: left;
-    width: 100%;
+    width: 99%;
     min-height: 370px;
     _height: 370px;
     background-image: url(../images/bg_conteudo.jpg);
@@ -70,14 +70,15 @@ img {
 }
 
 #topo {
-    background-image: url(../images/bg_topo.jpg);
-    background-repeat: repeat-x;
-    border-bottom: 2px solid #d1a84e;
-    width: 100%;
-    padding: 0 0 0 0;
-    margin: 0 0 0 0;
-    color: #fff;
-    font-size: 1.2em;
+	background: #014286 url(../images/bg_header.jpg) repeat-x scroll 0%;
+	border-bottom: 2px solid #D1A84E;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #D1A84E;
+	height: 64px;
+	color: #FFC;
+	overflow: hidden;
+	font-size: 15px;
 }
 
 .logo {
@@ -88,6 +89,7 @@ img {
 
 .logo img {
     float: left;
+    margin-right: 5px;
 }
 
 #logout {
@@ -140,6 +142,11 @@ input[type=radio], input[type=checkbox] {
 input[type=button], input[type=submit] {
     text-align:center;
     cursor:pointer;
+    padding: 2px 25px 2px 25px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;    
+	font-weight: bold;
 }
 
 fieldset input {

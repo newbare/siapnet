@@ -32,7 +32,7 @@ public class EMailUtil {
 
         SimpleEmail email = new SimpleEmail();
 
-        email.setHostName(smtpHost); // o servidor SMTP para envio do e-mail
+        email.setHostName(smtpHost);  //smtpHost, o servidor SMTP para envio do e-mail
 
         email.addTo(toEmail, toName); //destinatário
 

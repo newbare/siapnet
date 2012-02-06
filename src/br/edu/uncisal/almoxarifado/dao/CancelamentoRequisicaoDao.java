@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
 /**
  * Copyright 2010 UNCISAL Universidade de Ciências em Saúde do Estado de Alagoas.
  * 
@@ -17,14 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with SIAPNET.  If not, see <http://www.gnu.org/licenses/>.
  */
-%>
 
-<!--footer-->
-<div id="div_rodape">
-    <strong>SIAPNET - Sistema de Informação de Almoxarifado&nbsp;- V. 1.6.8&nbsp;</strong><br />
-    Acordo de Cooperação Técnica ITEC/UNCISAL - 2008&nbsp;<br />
-    Desenvolvido por : <a href="http://www.uncisal.edu.br" >UNCISAL</a><a href="http://www.uncisal.edu.br/cetis"> - GTIN (CETIS)</a>&nbsp;<br />
-</div>
-</body>
-</html>
-<!--footer-->
+package br.edu.uncisal.almoxarifado.dao;
+
+import org.hibernate.Session;
+
+import br.edu.uncisal.almoxarifado.model.CancelamantoRequisicao;
+
+@SuppressWarnings("unchecked")
+public class CancelamentoRequisicaoDao extends Dao<CancelamantoRequisicao>{
+
+	CancelamentoRequisicaoDao(Session session) {
+		super(session, CancelamantoRequisicao.class);
+	}
+	
+}

@@ -52,5 +52,6 @@
         <mapping class="br.edu.uncisal.almoxarifado.model.Unidade" />
         <mapping class="br.edu.uncisal.almoxarifado.model.Orgao" />
         <mapping class="br.edu.uncisal.almoxarifado.model.UsuarioDepartamento" />
+        <mapping class="br.edu.uncisal.almoxarifado.model.CancelamantoRequisicao" />
     </session-factory>
 </hibernate-configuration>

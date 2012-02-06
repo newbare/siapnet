@@ -34,6 +34,7 @@ import org.vraptor.scope.ScopeType;
 import org.vraptor.validator.ValidationErrors;
 
 import br.edu.uncisal.almoxarifado.dao.AlmoxarifadoDao;
+import br.edu.uncisal.almoxarifado.dao.CancelamentoRequisicaoDao;
 import br.edu.uncisal.almoxarifado.dao.DaoFactory;
 import br.edu.uncisal.almoxarifado.dao.DepartamentoDao;
 import br.edu.uncisal.almoxarifado.dao.ItemDao;
@@ -42,8 +43,8 @@ import br.edu.uncisal.almoxarifado.dao.NotaEntradaDao;
 import br.edu.uncisal.almoxarifado.dao.RequisicaoDao;
 import br.edu.uncisal.almoxarifado.dao.TipoSaidaDao;
 import br.edu.uncisal.almoxarifado.dao.UsuarioDao;
-import br.edu.uncisal.almoxarifado.dao.UsuarioDepartamentoDao;
 import br.edu.uncisal.almoxarifado.model.Almoxarifado;
+import br.edu.uncisal.almoxarifado.model.CancelamantoRequisicao;
 import br.edu.uncisal.almoxarifado.model.Departamento;
 import br.edu.uncisal.almoxarifado.model.Item;
 import br.edu.uncisal.almoxarifado.model.ItemEntrada;
@@ -97,7 +98,8 @@ public class RequisicaoLogic {
     private Item item = new Item();
     @Out
     private List<Item> itens;
-    
+    @Out
+    private List<CancelamantoRequisicao> cancelamantoRequisicoes;
     @Parameter
     private String qtdRequisitada;
     
@@ -138,8 +140,8 @@ public class RequisicaoLogic {
     private AlmoxarifadoDao aDao;
     private DepartamentoDao dDao;
     private TipoSaidaDao tDao;
-    private UsuarioDepartamentoDao uDDao;
     private NotaEntradaDao nDao;
+    private CancelamentoRequisicaoDao cancelamentoRequisicaoDao;
 
     public RequisicaoLogic(DaoFactory daoFactory, Usuario authUser) {
     	dao = daoFactory.getRequisicaoDao();
@@ -149,8 +151,8 @@ public class RequisicaoLogic {
     	aDao = daoFactory.getAlmoxarifadoDao();
     	dDao = daoFactory.getDepartamentoDao();
     	tDao = daoFactory.getTipoSaidaDao();
-    	uDDao = daoFactory.getUsuarioDepartamentoDao();
     	nDao = daoFactory.getNotaEntradaDao();
+    	cancelamentoRequisicaoDao = daoFactory.getCancelamentoRequisicaoDao();
     }
 
     public String formulario1() {
@@ -275,17 +277,17 @@ public class RequisicaoLogic {
         return "ok";
     }
 
-    /**
-     * Onde isto está sendo usado?
-     */
-    @Deprecated
-    public String verItem() {
-        ItemEstoque ie = iEDao.findByExample(item, requisicao.getAlmoxarifado());
-        if (ie != null) {
-            item = iDao.getById(ie.getItem().getId());
-        }
-        return "ok";
-    }
+//    /**
+//     * Onde isto está sendo usado?
+//     */
+//    @Deprecated
+//    public String verItem() {
+//        ItemEstoque ie = iEDao.findByExample(item, requisicao.getAlmoxarifado());
+//        if (ie != null) {
+//            item = iDao.getById(ie.getItem().getId());
+//        }
+//        return "ok";
+//    }
 
     public String addItem() {
     	//Devido a problemas com o vraptor 2 o atributo quantidade deve ser inserido manualmente.
@@ -295,11 +297,14 @@ public class RequisicaoLogic {
     }
     
     //FIXME ver pq não está sendo validada a quantidade!
-    public void validateAddItem(ValidationErrors errors) {
+    public void validateAddItem(ValidationErrors errors)throws Exception {
     	if(item.getId() == null || item.getId().equals(0L))
-    		 errors.add(new Message("aviso", "Informe o item."));
+    		errors.add(new Message("aviso", "Informe o item."));
     	if(qtdRequisitada.equals("0.00"))
     		errors.add(new Message("aviso", "Informe a quantidade."));
+    	if(iDao.loadItensDoEstoqueDoAlmoxarifado(item.getId(),this.requisicao.getAlmoxarifado()).isEmpty()){
+    		errors.add(new Message("aviso", "Item não disponível no estoque."));
+    	}
     }
     
     public String remItem() {
@@ -465,6 +470,7 @@ public class RequisicaoLogic {
     
     //Cancela uma requisição já aprovada pelo almoxarife.
     public String cancelar() {    	
+    	salvarHistoricoDoCancelamentoDaRequisicao(requisicao);
     	requisicao = dao.getById(requisicao.getId());
     	dao.remove(requisicao);
     	atualizaEstoque(requisicao.cancelar(), requisicao.getAlmoxarifado());
@@ -473,13 +479,33 @@ public class RequisicaoLogic {
     }
     
     public void validateCancelar(ValidationErrors errors) {
-    	requisicao = dao.getById(requisicao.getId());
     	if(
     			requisicao.getStatusAtual().getTipoStatus().getId().equals(TipoStatus.AGUARDANDO) ||
     			requisicao.getStatusAtual().getTipoStatus().getId().equals(TipoStatus.BLOQUEADO)
-    	)
+    			)
     		errors.add(new Message("aviso", "Esta nota não pode ser cancelada devido a seu status."));
     }
+    
+    private void salvarHistoricoDoCancelamentoDaRequisicao(Requisicao dadosRequisicaoCancelada) {
+    	CancelamantoRequisicao cancelamentoRequisicao = new CancelamantoRequisicao();
+    	cancelamentoRequisicao.setDataCancelamento(new Date());
+    	cancelamentoRequisicao.setJustificativa(dadosRequisicaoCancelada.getJustificativaCancelamento());
+    	cancelamentoRequisicao.setNumeroRequisicao(dadosRequisicaoCancelada.getId());
+    	cancelamentoRequisicao.setResponsavelCancelamento(authUser);
+    	cancelamentoRequisicaoDao.save(cancelamentoRequisicao);
+	}
+
+    /**
+	 * Método que carrega uma lista de requisicoes canceladas para o grid da
+	 * tela
+	 */
+	public String listarRequisicoesCanceladas() {
+		cancelamantoRequisicoes = (List<CancelamantoRequisicao>) cancelamentoRequisicaoDao.listAll();
+		if (cancelamantoRequisicoes == null || cancelamantoRequisicoes.size() == 0) {
+			msgErro = "Nenhuma Requisição Cancelada Foi Encontrada<br>";
+		}
+		return "ok";
+	}
     
     private void atualizaEstoque(Collection<Item> itens, Almoxarifado a) {
     	for (Item item : itens) {

@@ -23,22 +23,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <fmt:setLocale value="pt_BR" scope="application"/>
-
-<script>
-$(document).ready(function() {   
-    $('#btCancelar').click(function(event){
-    	var requisicaoId = $('#requisicaoCanceladaId').val();
-    	window.location = 'requisicao.cancelar.logic?requisicao.id='+ requisicaoId;    	
-    });    
-});
+<script type="text/javascript">
+	function validaCancelamento() {
+		if (document.getElementById('justificativa').value.length >= 3) {
+			return true;
+		} else {
+			alert("Para realizar o cancelamento é necessário inserir uma Justificativa!");
+			return false;
+		}
+	}
 </script>
-
 <c:choose>
 	<c:when test="${requisicao == null}">
 		Nenhuma requisição encontrada com este código.
 	</c:when>
 	<c:otherwise>
 		<fieldset style="width: 50%;">
+			<form name="cancelar" action="requisicao.cancelar.logic" method="POST" >
 			<input type="hidden" id="requisicaoCanceladaId" value="${requisicao.id}"/>
 			<legend>Dados da requisição</legend>
 			<table>
@@ -120,9 +121,18 @@ $(document).ready(function() {
 							</table>
 						</fieldset>
 					</td>
-				</tr>				
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<fieldset>
+		                        <legend> Justificativa do Cancelamento </legend>
+						 			<textarea id="justificativa" name="requisicao.justificativaCancelamento"  style="width: 98%" ></textarea>
+						</fieldset>
+					</td>
+				</tr>		
 			</table>
-			<input id="btCancelar" type="button" class="button" value="CANCELAR REQUISIÇÃO" />			
+			<input id="btCancelar" type="submit" class="button" value="CANCELAR REQUISIÇÃO" onclick="return validaCancelamento()"/>			
+			</form>
 		</fieldset>
 	</c:otherwise>
 </c:choose>

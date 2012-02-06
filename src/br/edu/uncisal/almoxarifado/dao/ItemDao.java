@@ -81,6 +81,22 @@ public class ItemDao extends Dao<Item> {
 		return sqlQuery.list();
 	}
 
+	public List<Item> loadItensDoEstoqueDoAlmoxarifado(Long idItem, Almoxarifado a) {
+		StringBuilder sql;
+		
+			sql = new StringBuilder(
+				" SELECT * FROM almoxarifado.item i"
+				+ " JOIN almoxarifado.item_estoque ie ON(ie.item_id = i.id)"
+				+ " WHERE ie.almoxarifado_id=" + a.getId()
+				+ " AND i.id="+idItem+" "
+			);
+		
+		//sql.append(" AND materialpermanente=" + permanente);		
+		sql.append( "ORDER BY nome");
+		SQLQuery sqlQuery = session.createSQLQuery(sql.toString()).addEntity(Item.class);
+		return sqlQuery.list();
+	}
+	
 	public List<Item> loadItensAutoComplete(String q, Almoxarifado a) {
 		q = UTF8Converter.converteUtf8toIso(q);
 		StringBuilder sql;

@@ -193,4 +193,8 @@ public class DaoFactory {
         return new UsuarioDepartamentoDao(this.session);
     }
 
+    public CancelamentoRequisicaoDao getCancelamentoRequisicaoDao() {
+    	return new CancelamentoRequisicaoDao(this.session);
+    }
+
 }

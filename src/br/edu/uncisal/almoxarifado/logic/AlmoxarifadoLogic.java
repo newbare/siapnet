@@ -136,6 +136,10 @@ public class AlmoxarifadoLogic {
         if (almoxarifado.getTelefone() == null || almoxarifado.getTelefone().equals("")) {
             errors.add(new Message("aviso", "Um telefone para o almoxarifado não foi definido."));
         }
+        
+        if(almoxarifado.getImplantando() == null){
+        	almoxarifado.setImplantando(false);
+        }
 
         if (errors.size() > 0) {         
             Unidade u = unidadeDao.getById(almoxarifado.getUnidade().getId());            

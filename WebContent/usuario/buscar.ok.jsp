@@ -23,7 +23,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:choose>
-	<c:when test="${fn:length(usuarios) > 0}">
+	<c:when test="${usuarios == null || fn:length(usuarios) > 0}">
 		<fieldset><legend><b>| <label class="lbTituloLegend">Listagem de usuarios</label> |</b></legend>
 		    <display:table id="usuario" class="grid" name="usuarios">
 		        <display:column sortable="true" title="Id"><a href="usuario.get.logic?usuario.id=${usuario.id}">${usuario.id}</a></display:column>
@@ -48,8 +48,13 @@
 		</fieldset>		
 	</c:when>
 	<c:otherwise>
+		<div align="center"> 
+			<b> <label class="lbTituloLegend" style="color: red;">Usuário não encontrado!</label></b>
+		</div>
 	</c:otherwise>
 </c:choose>
-
+<div align="center"> 
+	<span id="indBuscaUsuario"></span>
+</div>
 
 

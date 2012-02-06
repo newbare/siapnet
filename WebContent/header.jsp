@@ -28,7 +28,7 @@
         <meta http-equiv="pragma" content="no-cache" />
         <meta http-equiv="expires" content="-1" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>SIAPNET - Almoxarifado & Patrimônio</title>
+        <title>SIAPNET - Almoxarifado</title>
         <style type="text/css">
             @import url("/almoxarifado/css/layout.css");
             @import url("/almoxarifado/css/menu.css");
@@ -67,14 +67,14 @@
         <!--top-->
         <div id="topo">
             <div class="logo">
-                <img src="images/brasao_al.gif" height="55px" alt="Brasão do Estado de Alagoas" style="vertical-align:middle" />
+                <img src="images/brasao_al.jpg" height="55px" alt="Brasão do Estado de Alagoas" style="vertical-align:middle" />
                 <br/>
                 <strong style="font-size:16pt">Governo do Estado de Alagoas</strong>
             </div>
             <div>
-            	<h1>SIAPNET - Almoxarifado e Patrimônio<br/>
+            	<h1>SIAPNET - Almoxarifado<br/>
                     <span class="tituloSistema">
-                        Sistema de Informação de Almoxarifado e Patrimônio&nbsp;
+                        Sistema de Informação de Almoxarifado&nbsp;
             		</span>
             	</h1>
            	</div>

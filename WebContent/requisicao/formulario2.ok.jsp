@@ -21,6 +21,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <fmt:setLocale value="pt_BR" scope="application"/>
 <jsp:include page="/header.jsp" flush="true" />
 <script type="text/javascript">
@@ -35,6 +36,8 @@
         });
         document.getElementById("codItem").focus();
     });
+    
+    
 </script>
 <div id="conteudo">
     <fieldset><legend><b>| <label class="lbTituloLegend">Requerimento de material - passo 2</label> |</b></legend>

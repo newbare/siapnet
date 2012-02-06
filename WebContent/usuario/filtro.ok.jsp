@@ -42,6 +42,7 @@
 
 
     function buscar() {
+    	$("#indBuscaUsuario").html('<img src="<c:url value="/images/indicator.gif"/>"/>');
         var nome = document.getElementById("usuario.nome").value;
         var cpf = document.getElementById("usuario.cpf").value;
         var matricula = document.getElementById("usuario.numeroMatricula").value;

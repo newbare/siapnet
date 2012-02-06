@@ -100,6 +100,7 @@
         }
     }  
 </script>
+
 <div id="conteudo">
   <fieldset><legend><b>| <label class="lbTituloLegend">Cadastro de Entrada de itens</label> |</b></legend>
     <c:choose>
@@ -205,7 +206,8 @@
           </div>
         </fieldset>
       </fieldset>
-      <p align="center"><input type="button" class="button" value="Salvar informações" onclick="forms[0].submit()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <p align="center">
+      <input type="button" class="button" value="Salvar informações" onclick="forms[0].submit()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <input type="button" id="voltar" class="button" name="voltar" value="Voltar" onclick="history.back(-1)" /></p>
     </form>
   </fieldset>
